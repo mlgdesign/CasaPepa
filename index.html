@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Pepa – Taberna Biznaguera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #F0EDE6;
+      --cream2:   #E8E4DC;
+      --navy:     #1E2D4A;
+      --gold:     #B8913A;
+      --gold-lt:  #D4A84B;
+      --card-bg:  rgba(255,255,255,0.45);
+      --shadow:   0 2px 12px rgba(30,45,74,0.08);
+    }
+
+    body {
+      background-color: var(--cream);
+      font-family: 'EB Garamond', Georgia, serif;
+      min-height: 100vh;
+      color: var(--navy);
+    }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 14px 24px 0;
+    }
+    .lang-btn {
+      background: none;
+      border: 1.5px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 24px;
+      line-height: 1;
+      transition: border-color 0.2s, transform 0.15s;
+      opacity: 0.55;
+    }
+    .lang-btn:hover { opacity: 0.9; transform: scale(1.08); }
+    .lang-btn.active {
+      border-color: var(--gold);
+      opacity: 1;
+      box-shadow: 0 0 0 2px rgba(184,145,58,0.18);
+    }
+
+    /* ── WRAPPER ── */
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── HEADER / LOGO ── */
+    .header {
+      text-align: center;
+      padding: 28px 0 10px;
+    }
+    .ornament {
+      display: block;
+      width: 220px;
+      margin: 0 auto 6px;
+      opacity: 0.85;
+    }
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .brand-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-top: 2px;
+      letter-spacing: 0.02em;
+    }
+    .ornament-bottom {
+      display: block;
+      width: 200px;
+      margin: 8px auto 0;
+      opacity: 0.7;
+    }
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      color: var(--navy);
+      margin-top: 20px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0 18px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--navy);
+      opacity: 0.7;
+    }
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0.5;
+    }
+
+    /* ── MENU CARDS ── */
+    .menu-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .menu-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid rgba(184,145,58,0.18);
+      border-radius: 10px;
+      padding: 18px 20px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .menu-card:hover {
+      background: rgba(255,255,255,0.65);
+      box-shadow: 0 4px 20px rgba(30,45,74,0.13);
+      transform: translateY(-1px);
+    }
+    .menu-card:active { transform: translateY(0); }
+
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--cream2);
+      border: 1px solid rgba(184,145,58,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .card-text { flex: 1; }
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .card-sub {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      margin-top: 3px;
+    }
+    .card-arrow {
+      color: var(--gold);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(184,145,58,0.25);
+    }
+    .footer-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      margin-bottom: 8px;
+    }
+    .footer-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      color: var(--navy);
+      opacity: 0.5;
+    }
+
+    /* ── OVERLAY / CARTA PAGE ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      z-index: 100;
+      overflow-y: auto;
+    }
+    .overlay.open { display: block; }
+
+    .overlay-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px 24px 60px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--navy);
+      opacity: 0.7;
+      padding: 0;
+      margin-bottom: 24px;
+      transition: opacity 0.2s;
+    }
+    .back-btn:hover { opacity: 1; }
+
+    .carta-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-align: center;
+      letter-spacing: 0.06em;
+    }
+    .carta-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--gold);
+      text-align: center;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+    .carta-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 14px auto 28px;
+      opacity: 0.5;
+    }
+
+    /* image placeholder */
+    .carta-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--cream2);
+      border: 2px dashed rgba(184,145,58,0.35);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--navy);
+      opacity: 0.65;
+      margin-bottom: 20px;
+    }
+    .placeholder-icon { font-size: 2.5rem; }
+    .placeholder-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* sample menu items */
+    .menu-section { margin-bottom: 28px; }
+    .menu-section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(184,145,58,0.2);
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .item-info { flex: 1; }
+    .item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .item-desc {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--navy);
+      opacity: 0.65;
+      font-style: italic;
+    }
+    .item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    /* ── SVG ORNAMENTS (inline) ── */
+    .svg-ornament { display: block; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+<!-- LANGUAGE BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" id="btn-es" onclick="setLang('es')" title="Español" aria-label="Español">🇪🇸</button>
+  <button class="lang-btn"        id="btn-en" onclick="setLang('en')" title="English"  aria-label="English" >🇬🇧</button>
+</div>
+
+<!-- MAIN PAGE -->
+<div class="page" id="home">
+
+  <!-- HEADER -->
+  <div class="header">
+    <!-- Top ornament -->
+    <svg class="ornament" viewBox="0 0 320 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.75" stroke="#1E2D4A" stroke-width="1.2" fill="none">
+        <path d="M160 10 C130 10, 90 30, 60 25 C40 22, 20 35, 10 50"/>
+        <path d="M160 10 C190 10, 230 30, 260 25 C280 22, 300 35, 310 50"/>
+        <path d="M60 25 C70 15, 80 8, 90 20 C85 28, 75 30, 60 25Z"/>
+        <path d="M260 25 C250 15, 240 8, 230 20 C235 28, 245 30, 260 25Z"/>
+        <path d="M90 20 C100 10, 115 8, 120 18 C115 24, 102 22, 90 20Z"/>
+        <path d="M230 20 C220 10, 205 8, 200 18 C205 24, 218 22, 230 20Z"/>
+        <path d="M120 18 C130 12, 145 10, 148 20 C144 26, 132 22, 120 18Z"/>
+        <path d="M200 18 C190 12, 175 10, 172 20 C176 26, 188 22, 200 18Z"/>
+        <circle cx="160" cy="10" r="3" fill="#B8913A" stroke="none"/>
+        <line x1="140" y1="50" x2="180" y2="50" stroke="#B8913A" stroke-width="0.8"/>
+      </g>
+    </svg>
+
+    <h1 class="brand-title">Casa Pepa</h1>
+    <p class="brand-sub">Taberna Biznaguera</p>
+
+    <!-- Bottom ornament -->
+    <svg class="ornament-bottom" viewBox="0 0 280 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.65" stroke="#1E2D4A" stroke-width="1.1" fill="none">
+        <path d="M140 50 C110 50, 75 30, 45 35 C25 38, 10 25, 5 10"/>
+        <path d="M140 50 C170 50, 205 30, 235 35 C255 38, 270 25, 275 10"/>
+        <path d="M45 35 C55 45, 65 52, 75 40 C70 32, 58 30, 45 35Z"/>
+        <path d="M235 35 C225 45, 215 52, 205 40 C210 32, 222 30, 235 35Z"/>
+        <circle cx="140" cy="50" r="2.5" fill="#B8913A" stroke="none"/>
+      </g>
+    </svg>
+
+    <p class="tagline" id="tagline-text">Taberna Biznaguera</p>
+  </div>
+
+  <!-- SECTION LABEL -->
+  <div class="section-label">
+    <span id="section-label-text">NUESTRAS CARTAS</span>
+  </div>
+
+  <!-- MENU CARDS -->
+  <div class="menu-list">
+    <div class="menu-card" onclick="openCarta('desayuno')">
+      <div class="card-icon">☕</div>
+      <div class="card-text">
+        <div class="card-name" id="card-name-desayuno">Desayuno</div>
+        <div class="card-sub" id="card-sub-desayuno">VILLAGE BREAKFAST</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+
+    <div class="menu-card" onclick="openCarta('comida')">
+      <div class="card-icon">🍽️</div>
+      <div class="card-text">
+        <div class="card-name" id="card-name-comida">Comida</div>
+        <div class="card-sub" id="card-sub-comida">FOOD MENU</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+
+    <div class="menu-card" onclick="openCarta('meriendas')">
+      <div class="card-icon">🫖</div>
+      <div class="card-text">
+        <div class="card-name" id="card-name-meriendas">Meriendas</div>
+        <div class="card-sub" id="card-sub-meriendas">SNACK</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+
+    <div class="menu-card" onclick="openCarta('cocteles')">
+      <div class="card-icon">🍸</div>
+      <div class="card-text">
+        <div class="card-name" id="card-name-cocteles">Cócteles</div>
+        <div class="card-sub" id="card-sub-cocteles">COCKTAIL CLUB</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+
+    <div class="menu-card" onclick="openCarta('combinados')">
+      <div class="card-icon">🥃</div>
+      <div class="card-text">
+        <div class="card-name" id="card-name-combinados">Combinados</div>
+        <div class="card-sub" id="card-sub-combinados">ALCOHOLIC BEVERAGES</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-dot"></div>
+    <p class="footer-text">CASA PEPA · TORREMOLINOS</p>
+  </div>
+</div><!-- /page -->
+
+
+<!-- ═══════════════════════════════════════
+     CARTA OVERLAYS  (one per section)
+     ═══════════════════════════════════════ -->
+
+<!-- DESAYUNO -->
+<div class="overlay" id="overlay-desayuno">
+  <div class="overlay-inner">
+    <button class="back-btn" onclick="closeCarta('desayuno')">← <span class="back-label">VOLVER</span></button>
+    <h2 class="carta-title" id="ov-title-desayuno">Desayuno</h2>
+    <p class="carta-sub" id="ov-sub-desayuno">Village Breakfast</p>
+    <div class="carta-divider"></div>
+
+    <!-- IMAGE SLOT — replace src when you have the photo -->
+    <div class="carta-img-placeholder" id="img-desayuno">
+      <div class="placeholder-icon">🖼️</div>
+      <div class="placeholder-label" id="ph-desayuno">IMAGEN DE LA CARTA<br>AÑADIR EN GITHUB</div>
+    </div>
+
+    <!-- Sample items (will be visible until image is added) -->
+    <div class="menu-section">
+      <div class="menu-section-title" id="ds-sec1">DESAYUNOS COMPLETOS</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ds-i1n">Desayuno de pueblo</div>
+          <div class="item-desc" id="ds-i1d">Tostada con aceite, café con leche, zumo natural</div>
+        </div>
+        <div class="item-price">5,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ds-i2n">Desayuno inglés</div>
+          <div class="item-desc" id="ds-i2d">Huevos, bacon, tostadas, mermelada, té o café</div>
+        </div>
+        <div class="item-price">8,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ds-i3n">Tostada con tomate</div>
+          <div class="item-desc" id="ds-i3d">Pan de masa madre, tomate rallado, AOVE</div>
+        </div>
+        <div class="item-price">3,00 €</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="ds-sec2">BOLLERÍA Y DULCES</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ds-i4n">Churros con chocolate</div>
+          <div class="item-desc" id="ds-i4d">Churros caseros, chocolate a la taza</div>
+        </div>
+        <div class="item-price">4,00 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ds-i5n">Croissant de mantequilla</div>
+          <div class="item-desc" id="ds-i5d">Con mantequilla y mermelada artesana</div>
+        </div>
+        <div class="item-price">2,50 €</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMIDA -->
+<div class="overlay" id="overlay-comida">
+  <div class="overlay-inner">
+    <button class="back-btn" onclick="closeCarta('comida')">← <span class="back-label">VOLVER</span></button>
+    <h2 class="carta-title" id="ov-title-comida">Comida</h2>
+    <p class="carta-sub" id="ov-sub-comida">Food Menu</p>
+    <div class="carta-divider"></div>
+    <div class="carta-img-placeholder" id="img-comida">
+      <div class="placeholder-icon">🖼️</div>
+      <div class="placeholder-label" id="ph-comida">IMAGEN DE LA CARTA<br>AÑADIR EN GITHUB</div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="cm-sec1">ENTRANTES</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cm-i1n">Gazpacho andaluz</div>
+          <div class="item-desc" id="cm-i1d">Receta tradicional, guarnición de pepino y pimiento</div>
+        </div>
+        <div class="item-price">5,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cm-i2n">Croquetas de jamón ibérico</div>
+          <div class="item-desc" id="cm-i2d">Raciones de 6 unidades, bechamel casera</div>
+        </div>
+        <div class="item-price">7,00 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cm-i3n">Tabla de ibéricos</div>
+          <div class="item-desc" id="cm-i3d">Jamón, salchichón, chorizo, pan con tomate</div>
+        </div>
+        <div class="item-price">14,50 €</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="cm-sec2">PLATOS PRINCIPALES</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cm-i4n">Porra antequerana</div>
+          <div class="item-desc" id="cm-i4d">Con atún y huevo duro, pan de pueblo</div>
+        </div>
+        <div class="item-price">7,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cm-i5n">Espeto de sardinas</div>
+          <div class="item-desc" id="cm-i5d">Sardinas frescas al espeto, limón</div>
+        </div>
+        <div class="item-price">9,00 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cm-i6n">Rabo de toro estofado</div>
+          <div class="item-desc" id="cm-i6d">Cocción lenta, puré de patata trufado</div>
+        </div>
+        <div class="item-price">16,00 €</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MERIENDAS -->
+<div class="overlay" id="overlay-meriendas">
+  <div class="overlay-inner">
+    <button class="back-btn" onclick="closeCarta('meriendas')">← <span class="back-label">VOLVER</span></button>
+    <h2 class="carta-title" id="ov-title-meriendas">Meriendas</h2>
+    <p class="carta-sub" id="ov-sub-meriendas">Snack</p>
+    <div class="carta-divider"></div>
+    <div class="carta-img-placeholder" id="img-meriendas">
+      <div class="placeholder-icon">🖼️</div>
+      <div class="placeholder-label" id="ph-meriendas">IMAGEN DE LA CARTA<br>AÑADIR EN GITHUB</div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="mr-sec1">PARA PICAR</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="mr-i1n">Montaditos variados</div>
+          <div class="item-desc" id="mr-i1d">Selección de 4 montaditos de la casa</div>
+        </div>
+        <div class="item-price">6,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="mr-i2n">Patatas bravas</div>
+          <div class="item-desc" id="mr-i2d">Salsa brava casera y alioli</div>
+        </div>
+        <div class="item-price">4,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="mr-i3n">Boquerones en vinagre</div>
+          <div class="item-desc" id="mr-i3d">Con ajo y perejil fresco, AOVE</div>
+        </div>
+        <div class="item-price">5,50 €</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="mr-sec2">DULCES DE TARDE</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="mr-i4n">Brownie con helado</div>
+          <div class="item-desc" id="mr-i4d">Brownie casero, bola de vainilla, salsa de chocolate</div>
+        </div>
+        <div class="item-price">5,00 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="mr-i5n">Biznaga de azúcar</div>
+          <div class="item-desc" id="mr-i5d">Dulce típico malagueño de la casa</div>
+        </div>
+        <div class="item-price">3,50 €</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CÓCTELES -->
+<div class="overlay" id="overlay-cocteles">
+  <div class="overlay-inner">
+    <button class="back-btn" onclick="closeCarta('cocteles')">← <span class="back-label">VOLVER</span></button>
+    <h2 class="carta-title" id="ov-title-cocteles">Cócteles</h2>
+    <p class="carta-sub" id="ov-sub-cocteles">Cocktail Club</p>
+    <div class="carta-divider"></div>
+    <div class="carta-img-placeholder" id="img-cocteles">
+      <div class="placeholder-icon">🖼️</div>
+      <div class="placeholder-label" id="ph-cocteles">IMAGEN DE LA CARTA<br>AÑADIR EN GITHUB</div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="ct-sec1">CLÁSICOS</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ct-i1n">Mojito</div>
+          <div class="item-desc" id="ct-i1d">Ron, lima, hierbabuena, azúcar, soda</div>
+        </div>
+        <div class="item-price">8,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ct-i2n">Aperol Spritz</div>
+          <div class="item-desc" id="ct-i2d">Aperol, Prosecco, naranja, soda</div>
+        </div>
+        <div class="item-price">8,00 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ct-i3n">Gin Tonic Premium</div>
+          <div class="item-desc" id="ct-i3d">Gin selección, tónica artesana, botánicas</div>
+        </div>
+        <div class="item-price">10,00 €</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="ct-sec2">DE LA CASA</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ct-i4n">Biznaguera Sour</div>
+          <div class="item-desc" id="ct-i4d">Vodka, limón, albahaca, azúcar moreno, espuma de clara</div>
+        </div>
+        <div class="item-price">10,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="ct-i5n">Pepa's Garden</div>
+          <div class="item-desc" id="ct-i5d">Gin rosa, pepino, jengibre, tónica de flores</div>
+        </div>
+        <div class="item-price">11,00 €</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMBINADOS -->
+<div class="overlay" id="overlay-combinados">
+  <div class="overlay-inner">
+    <button class="back-btn" onclick="closeCarta('combinados')">← <span class="back-label">VOLVER</span></button>
+    <h2 class="carta-title" id="ov-title-combinados">Combinados</h2>
+    <p class="carta-sub" id="ov-sub-combinados">Alcoholic Beverages</p>
+    <div class="carta-divider"></div>
+    <div class="carta-img-placeholder" id="img-combinados">
+      <div class="placeholder-icon">🖼️</div>
+      <div class="placeholder-label" id="ph-combinados">IMAGEN DE LA CARTA<br>AÑADIR EN GITHUB</div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="cb-sec1">ESPIRITUOSOS</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cb-i1n">Ron con cola</div>
+          <div class="item-desc" id="cb-i1d">Ron Havana 3 años, Coca-Cola, limón</div>
+        </div>
+        <div class="item-price">6,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cb-i2n">Vodka con naranja</div>
+          <div class="item-desc" id="cb-i2d">Vodka Absolut, zumo de naranja natural</div>
+        </div>
+        <div class="item-price">6,50 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cb-i3n">Whisky con cola</div>
+          <div class="item-desc" id="cb-i3d">Johnnie Walker Red Label, Coca-Cola</div>
+        </div>
+        <div class="item-price">7,00 €</div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-section-title" id="cb-sec2">CERVEZAS Y VINOS</div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cb-i4n">Cerveza artesana</div>
+          <div class="item-desc" id="cb-i4d">Selección local de temporada</div>
+        </div>
+        <div class="item-price">4,00 €</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-name" id="cb-i5n">Vino de la tierra</div>
+          <div class="item-desc" id="cb-i5d">Copa de vino tinto, blanco o rosado D.O. Málaga</div>
+        </div>
+        <div class="item-price">4,50 €</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ── TRANSLATIONS ─────────────────────────────────────────────────────────────
+const T = {
+  es: {
+    tagline: "Taberna Biznaguera",
+    sectionLabel: "NUESTRAS CARTAS",
+    backLabel: "VOLVER",
+    // card names & subs
+    "card-name-desayuno": "Desayuno",   "card-sub-desayuno": "VILLAGE BREAKFAST",
+    "card-name-comida":   "Comida",     "card-sub-comida":   "FOOD MENU",
+    "card-name-meriendas":"Meriendas",  "card-sub-meriendas":"SNACK",
+    "card-name-cocteles": "Cócteles",   "card-sub-cocteles": "COCKTAIL CLUB",
+    "card-name-combinados":"Combinados","card-sub-combinados":"ALCOHOLIC BEVERAGES",
+    // overlay titles
+    "ov-title-desayuno":"Desayuno",    "ov-sub-desayuno":"Village Breakfast",
+    "ov-title-comida":"Comida",        "ov-sub-comida":"Menú de Comida",
+    "ov-title-meriendas":"Meriendas",  "ov-sub-meriendas":"Snack",
+    "ov-title-cocteles":"Cócteles",    "ov-sub-cocteles":"Cocktail Club",
+    "ov-title-combinados":"Combinados","ov-sub-combinados":"Bebidas Alcohólicas",
+    // placeholders
+    "ph-desayuno":"IMAGEN DE LA CARTA\nAÑADIR EN GITHUB",
+    "ph-comida":"IMAGEN DE LA CARTA\nAÑADIR EN GITHUB",
+    "ph-meriendas":"IMAGEN DE LA CARTA\nAÑADIR EN GITHUB",
+    "ph-cocteles":"IMAGEN DE LA CARTA\nAÑADIR EN GITHUB",
+    "ph-combinados":"IMAGEN DE LA CARTA\nAÑADIR EN GITHUB",
+    // Desayuno items
+    "ds-sec1":"DESAYUNOS COMPLETOS","ds-sec2":"BOLLERÍA Y DULCES",
+    "ds-i1n":"Desayuno de pueblo","ds-i1d":"Tostada con aceite, café con leche, zumo natural",
+    "ds-i2n":"Desayuno inglés","ds-i2d":"Huevos, bacon, tostadas, mermelada, té o café",
+    "ds-i3n":"Tostada con tomate","ds-i3d":"Pan de masa madre, tomate rallado, AOVE",
+    "ds-i4n":"Churros con chocolate","ds-i4d":"Churros caseros, chocolate a la taza",
+    "ds-i5n":"Croissant de mantequilla","ds-i5d":"Con mantequilla y mermelada artesana",
+    // Comida items
+    "cm-sec1":"ENTRANTES","cm-sec2":"PLATOS PRINCIPALES",
+    "cm-i1n":"Gazpacho andaluz","cm-i1d":"Receta tradicional, guarnición de pepino y pimiento",
+    "cm-i2n":"Croquetas de jamón ibérico","cm-i2d":"Raciones de 6 unidades, bechamel casera",
+    "cm-i3n":"Tabla de ibéricos","cm-i3d":"Jamón, salchichón, chorizo, pan con tomate",
+    "cm-i4n":"Porra antequerana","cm-i4d":"Con atún y huevo duro, pan de pueblo",
+    "cm-i5n":"Espeto de sardinas","cm-i5d":"Sardinas frescas al espeto, limón",
+    "cm-i6n":"Rabo de toro estofado","cm-i6d":"Cocción lenta, puré de patata trufado",
+    // Meriendas items
+    "mr-sec1":"PARA PICAR","mr-sec2":"DULCES DE TARDE",
+    "mr-i1n":"Montaditos variados","mr-i1d":"Selección de 4 montaditos de la casa",
+    "mr-i2n":"Patatas bravas","mr-i2d":"Salsa brava casera y alioli",
+    "mr-i3n":"Boquerones en vinagre","mr-i3d":"Con ajo y perejil fresco, AOVE",
+    "mr-i4n":"Brownie con helado","mr-i4d":"Brownie casero, bola de vainilla, salsa de chocolate",
+    "mr-i5n":"Biznaga de azúcar","mr-i5d":"Dulce típico malagueño de la casa",
+    // Cócteles items
+    "ct-sec1":"CLÁSICOS","ct-sec2":"DE LA CASA",
+    "ct-i1n":"Mojito","ct-i1d":"Ron, lima, hierbabuena, azúcar, soda",
+    "ct-i2n":"Aperol Spritz","ct-i2d":"Aperol, Prosecco, naranja, soda",
+    "ct-i3n":"Gin Tonic Premium","ct-i3d":"Gin selección, tónica artesana, botánicas",
+    "ct-i4n":"Biznaguera Sour","ct-i4d":"Vodka, limón, albahaca, azúcar moreno, espuma de clara",
+    "ct-i5n":"Pepa's Garden","ct-i5d":"Gin rosa, pepino, jengibre, tónica de flores",
+    // Combinados items
+    "cb-sec1":"ESPIRITUOSOS","cb-sec2":"CERVEZAS Y VINOS",
+    "cb-i1n":"Ron con cola","cb-i1d":"Ron Havana 3 años, Coca-Cola, limón",
+    "cb-i2n":"Vodka con naranja","cb-i2d":"Vodka Absolut, zumo de naranja natural",
+    "cb-i3n":"Whisky con cola","cb-i3d":"Johnnie Walker Red Label, Coca-Cola",
+    "cb-i4n":"Cerveza artesana","cb-i4d":"Selección local de temporada",
+    "cb-i5n":"Vino de la tierra","cb-i5d":"Copa de vino tinto, blanco o rosado D.O. Málaga",
+  },
+  en: {
+    tagline: "Taberna Biznaguera",
+    sectionLabel: "OUR MENUS",
+    backLabel: "BACK",
+    "card-name-desayuno": "Breakfast",  "card-sub-desayuno": "VILLAGE BREAKFAST",
+    "card-name-comida":   "Lunch",      "card-sub-comida":   "FOOD MENU",
+    "card-name-meriendas":"Snacks",     "card-sub-meriendas":"SNACK",
+    "card-name-cocteles": "Cocktails",  "card-sub-cocteles": "COCKTAIL CLUB",
+    "card-name-combinados":"Drinks",    "card-sub-combinados":"ALCOHOLIC BEVERAGES",
+    "ov-title-desayuno":"Breakfast",   "ov-sub-desayuno":"Village Breakfast",
+    "ov-title-comida":"Lunch",         "ov-sub-comida":"Food Menu",
+    "ov-title-meriendas":"Snacks",     "ov-sub-meriendas":"Afternoon Snack",
+    "ov-title-cocteles":"Cocktails",   "ov-sub-cocteles":"Cocktail Club",
+    "ov-title-combinados":"Drinks",    "ov-sub-combinados":"Alcoholic Beverages",
+    "ph-desayuno":"MENU IMAGE\nADD ON GITHUB",
+    "ph-comida":"MENU IMAGE\nADD ON GITHUB",
+    "ph-meriendas":"MENU IMAGE\nADD ON GITHUB",
+    "ph-cocteles":"MENU IMAGE\nADD ON GITHUB",
+    "ph-combinados":"MENU IMAGE\nADD ON GITHUB",
+    "ds-sec1":"FULL BREAKFASTS","ds-sec2":"PASTRIES & SWEETS",
+    "ds-i1n":"Village Breakfast","ds-i1d":"Toast with olive oil, white coffee, fresh orange juice",
+    "ds-i2n":"English Breakfast","ds-i2d":"Eggs, bacon, toast, jam, tea or coffee",
+    "ds-i3n":"Tomato Toast","ds-i3d":"Sourdough bread, grated tomato, extra virgin olive oil",
+    "ds-i4n":"Churros with Hot Chocolate","ds-i4d":"Homemade churros, thick drinking chocolate",
+    "ds-i5n":"Butter Croissant","ds-i5d":"With butter and artisan jam",
+    "cm-sec1":"STARTERS","cm-sec2":"MAIN COURSES",
+    "cm-i1n":"Andalusian Gazpacho","cm-i1d":"Traditional recipe, cucumber & pepper garnish",
+    "cm-i2n":"Iberian Ham Croquettes","cm-i2d":"Portions of 6, homemade béchamel",
+    "cm-i3n":"Iberian Charcuterie Board","cm-i3d":"Ham, salami, chorizo, bread with tomato",
+    "cm-i4n":"Porra Antequerana","cm-i4d":"With tuna and hard-boiled egg, rustic bread",
+    "cm-i5n":"Sardine Skewers","cm-i5d":"Fresh sardines grilled on skewer, lemon",
+    "cm-i6n":"Slow-cooked Oxtail","cm-i6d":"Long-braised oxtail, truffle mashed potato",
+    "mr-sec1":"BITES","mr-sec2":"AFTERNOON SWEETS",
+    "mr-i1n":"Mixed Mini Sandwiches","mr-i1d":"Selection of 4 house montaditos",
+    "mr-i2n":"Patatas Bravas","mr-i2d":"Homemade spicy sauce and aioli",
+    "mr-i3n":"Anchovies in Vinegar","mr-i3d":"With fresh garlic and parsley, extra virgin olive oil",
+    "mr-i4n":"Brownie & Ice Cream","mr-i4d":"Homemade brownie, vanilla scoop, chocolate sauce",
+    "mr-i5n":"Sugar Biznaga","mr-i5d":"Traditional Málaga sweet from the house",
+    "ct-sec1":"CLASSICS","ct-sec2":"HOUSE SPECIALS",
+    "ct-i1n":"Mojito","ct-i1d":"Rum, lime, mint, sugar, soda",
+    "ct-i2n":"Aperol Spritz","ct-i2d":"Aperol, Prosecco, orange, soda",
+    "ct-i3n":"Premium Gin & Tonic","ct-i3d":"Selected gin, artisan tonic, botanicals",
+    "ct-i4n":"Biznaguera Sour","ct-i4d":"Vodka, lemon, basil, brown sugar, egg white foam",
+    "ct-i5n":"Pepa's Garden","ct-i5d":"Pink gin, cucumber, ginger, floral tonic",
+    "cb-sec1":"SPIRITS","cb-sec2":"BEERS & WINES",
+    "cb-i1n":"Rum & Cola","cb-i1d":"Havana 3yr Rum, Coca-Cola, lemon",
+    "cb-i2n":"Vodka & Orange","cb-i2d":"Absolut Vodka, fresh orange juice",
+    "cb-i3n":"Whisky & Cola","cb-i3d":"Johnnie Walker Red Label, Coca-Cola",
+    "cb-i4n":"Craft Beer","cb-i4d":"Local seasonal selection",
+    "cb-i5n":"House Wine","cb-i5d":"Glass of red, white or rosé D.O. Málaga",
+  }
+};
+
+let currentLang = 'es';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  const t = T[lang];
+  document.getElementById('tagline-text').textContent    = t.tagline;
+  document.getElementById('section-label-text').textContent = t.sectionLabel;
+
+  // update all back buttons
+  document.querySelectorAll('.back-label').forEach(el => el.textContent = t.backLabel);
+
+  // update all text nodes
+  Object.keys(t).forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (id.startsWith('ph-')) {
+      el.innerHTML = t[id].replace('\n', '<br>');
+    } else {
+      el.textContent = t[id];
+    }
+  });
+}
+
+function openCarta(name) {
+  document.getElementById('overlay-' + name).classList.add('open');
+  document.body.style.overflow = 'hidden';
+  window.scrollTo(0,0);
+}
+function closeCarta(name) {
+  document.getElementById('overlay-' + name).classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>
