@@ -84,6 +84,7 @@
       margin-top: 2px;
       letter-spacing: 0.02em;
     }
+    .card-sub { transition: opacity 0.2s; }
     .ornament-bottom {
       display: block;
       width: 200px;
@@ -167,11 +168,13 @@
     }
     .card-text { flex: 1; }
     .card-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
       font-weight: 600;
       color: var(--navy);
       line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
     .card-sub {
       font-family: 'Cinzel', serif;
@@ -380,7 +383,9 @@
       </g>
     </svg>
 
-    <p class="tagline" id="tagline-text">Taberna Biznaguera</p>
+    <!-- LOGO IMAGE — sube logo.png a GitHub y descomenta esta línea:
+    <img src="logo.png" alt="Casa Pepa" style="width:220px;margin:10px auto 0;display:block;" />
+    -->
   </div>
 
   <!-- SECTION LABEL -->
@@ -394,7 +399,7 @@
       <div class="card-icon">☕</div>
       <div class="card-text">
         <div class="card-name" id="card-name-desayuno">Desayuno</div>
-        <div class="card-sub" id="card-sub-desayuno">VILLAGE BREAKFAST</div>
+        <div class="card-sub" id="card-sub-desayuno"></div>
       </div>
       <div class="card-arrow">→</div>
     </div>
@@ -403,7 +408,7 @@
       <div class="card-icon">🍽️</div>
       <div class="card-text">
         <div class="card-name" id="card-name-comida">Comida</div>
-        <div class="card-sub" id="card-sub-comida">FOOD MENU</div>
+        <div class="card-sub" id="card-sub-comida"></div>
       </div>
       <div class="card-arrow">→</div>
     </div>
@@ -412,7 +417,7 @@
       <div class="card-icon">🫖</div>
       <div class="card-text">
         <div class="card-name" id="card-name-meriendas">Meriendas</div>
-        <div class="card-sub" id="card-sub-meriendas">SNACK</div>
+        <div class="card-sub" id="card-sub-meriendas"></div>
       </div>
       <div class="card-arrow">→</div>
     </div>
@@ -421,7 +426,7 @@
       <div class="card-icon">🍸</div>
       <div class="card-text">
         <div class="card-name" id="card-name-cocteles">Cócteles</div>
-        <div class="card-sub" id="card-sub-cocteles">COCKTAIL CLUB</div>
+        <div class="card-sub" id="card-sub-cocteles"></div>
       </div>
       <div class="card-arrow">→</div>
     </div>
@@ -430,7 +435,7 @@
       <div class="card-icon">🥃</div>
       <div class="card-text">
         <div class="card-name" id="card-name-combinados">Combinados</div>
-        <div class="card-sub" id="card-sub-combinados">ALCOHOLIC BEVERAGES</div>
+        <div class="card-sub" id="card-sub-combinados"></div>
       </div>
       <div class="card-arrow">→</div>
     </div>
@@ -743,11 +748,11 @@ const T = {
     sectionLabel: "NUESTRAS CARTAS",
     backLabel: "VOLVER",
     // card names & subs
-    "card-name-desayuno": "Desayuno",   "card-sub-desayuno": "VILLAGE BREAKFAST",
-    "card-name-comida":   "Comida",     "card-sub-comida":   "FOOD MENU",
-    "card-name-meriendas":"Meriendas",  "card-sub-meriendas":"SNACK",
-    "card-name-cocteles": "Cócteles",   "card-sub-cocteles": "COCKTAIL CLUB",
-    "card-name-combinados":"Combinados","card-sub-combinados":"ALCOHOLIC BEVERAGES",
+    "card-name-desayuno": "Desayuno",   "card-sub-desayuno": "",
+    "card-name-comida":   "Comida",     "card-sub-comida":   "",
+    "card-name-meriendas":"Meriendas",  "card-sub-meriendas":"",
+    "card-name-cocteles": "Cócteles",   "card-sub-cocteles": "",
+    "card-name-combinados":"Combinados","card-sub-combinados":"",
     // overlay titles
     "ov-title-desayuno":"Desayuno",    "ov-sub-desayuno":"Village Breakfast",
     "ov-title-comida":"Comida",        "ov-sub-comida":"Menú de Comida",
@@ -858,7 +863,6 @@ function setLang(lang) {
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
 
   const t = T[lang];
-  document.getElementById('tagline-text').textContent    = t.tagline;
   document.getElementById('section-label-text').textContent = t.sectionLabel;
 
   // update all back buttons
