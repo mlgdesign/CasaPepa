@@ -680,10 +680,10 @@ function setLang(lang) {
 
   // switch images based on language
   const imgs = {
-    'img-desayuno':  lang === 'es' ? 'Desayunos Esp.png'  : 'Desayunos Ing.png',
-    'img-bebida':    lang === 'es' ? 'Bebida Esp.png'     : 'Bebida Ing.png',
-    'img-comida':    lang === 'es' ? 'Comida Esp.png'     : 'Comida Ing.png',
-    'img-meriendas': lang === 'es' ? 'Meriendas Esp.png'  : 'Meriendas Ing.png',
+    'img-desayuno':  lang === 'es' ? 'DesayunosEsp.jpg'  : 'DesayunosIng.jpg',
+    'img-bebida':    lang === 'es' ? 'BebidaEsp.jpg'     : 'BebidaIng.jpg',
+    'img-comida':    lang === 'es' ? 'ComidaEsp.jpg'     : 'ComidaIng.jpg',
+    'img-meriendas': lang === 'es' ? 'MeriendasEsp.jpg'  : 'MeriendasIng.jpg',
   };
   Object.keys(imgs).forEach(id => {
     const el = document.getElementById(id);
@@ -692,6 +692,17 @@ function setLang(lang) {
 }
 
 function openCarta(name) {
+  // set correct image for current language before opening
+  const imgMap = {
+    'desayuno':  currentLang === 'es' ? 'DesayunosEsp.jpg' : 'DesayunosIng.jpg',
+    'bebida':    currentLang === 'es' ? 'BebidaEsp.jpg'    : 'BebidaIng.jpg',
+    'comida':    currentLang === 'es' ? 'ComidaEsp.jpg'    : 'ComidaIng.jpg',
+    'meriendas': currentLang === 'es' ? 'MeriendasEsp.jpg' : 'MeriendasIng.jpg',
+  };
+  if (imgMap[name]) {
+    const el = document.getElementById('img-' + name);
+    if (el) el.src = imgMap[name];
+  }
   document.getElementById('overlay-' + name).classList.add('open');
   document.body.style.overflow = 'hidden';
   window.scrollTo(0,0);
